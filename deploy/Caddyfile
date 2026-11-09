@@ -1,0 +1,26 @@
+# Used only when the API is exposed directly instead of through Cloudflare Tunnel.
+# Set API_HOSTNAME in /etc/caddy/caddy.env, e.g. finovexa-api.34.120.10.20.sslip.io
+{
+	email {$ACADDR}
+}
+
+{$API_HOSTNAME} {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:8000
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "no-referrer"
+		-Server
+	}
+
+	log {
+		output file /var/log/caddy/finovexa-api.log {
+			roll_size 10MiB
+			roll_keep 3
+		}
+		format json
+	}
+}

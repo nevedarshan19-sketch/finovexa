@@ -1,0 +1,10 @@
+[Unit]
+Description=Run the FINOVEXA backup daily
+
+[Timer]
+OnCalendar=*-*-* 19:30:00 UTC
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

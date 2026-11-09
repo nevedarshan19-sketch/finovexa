@@ -1,0 +1,10 @@
+[Unit]
+Description=Run the FINOVEXA health snapshot hourly
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+RandomizedDelaySec=60
+
+[Install]
+WantedBy=timers.target

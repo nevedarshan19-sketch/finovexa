@@ -1,0 +1,7 @@
+[Unit]
+Description=FINOVEXA resource and health snapshot
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/finovexa/finovexa-health.sh

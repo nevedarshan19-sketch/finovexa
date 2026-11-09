@@ -1,0 +1,57 @@
+services:
+  - type: web
+    name: finovexa
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      # Production starts clean: no demo users and no demo business records.
+      - key: AUTO_SEED
+        value: "false"
+      - key: DEMO_RESET_ENABLED
+        value: "false"
+      # Managed Postgres (for example Neon free tier). Paste the pooled
+      # postgresql:// URL in the Render dashboard; never commit it.
+      - key: DATABASE_URL
+        sync: false
+      # Public service URL. PayPal checkout returns here after approval; set it to
+      # https://<service>.onrender.com once Render assigns the hostname.
+      - key: FRONTEND_URL
+        sync: false
+      # Uploaded documents live in the database so they survive redeploys.
+      - key: FILE_STORAGE
+        value: database
+      # Encrypts Payment Connect statement originals. Set once and never rotate;
+      # when blank it is derived from SECRET_KEY, so rotating SECRET_KEY would make
+      # existing encrypted files unreadable.
+      - key: PAYMENT_DOCUMENT_KEY
+        sync: false
+      # Developer-only bootstrap for now. No INITIAL_* owner or accountant values
+      # are declared, so the first start creates only the developer login below.
+      # The developer console creates and edits every owner, employee, accountant
+      # and customer login afterwards.
+      # First accounts are optional only if you later choose to provision them:
+      # add INITIAL_OWNER_*, INITIAL_BUSINESS_NAME and the accountant INITIAL_*
+      # variables manually in the Render dashboard. Leave them unset to keep
+      # developer-only bootstrap.
+      # Live broker orders stay off until an owner explicitly enables them.
+      # Also set UPSTOX_ACCESS_TOKEN and, if this host has no registered static IP,
+      # UPSTOX_ORDER_PROXY_URL in the Render dashboard.
+      - key: UPSTOX_LIVE_TRADING_ENABLED
+        value: "false"
+      - key: UPSTOX_ORDER_BASE_URL
+        value: https://api-hft.upstox.com/v2
+      # Developer console account. Provisioned only from env; leave unset to disable
+      # the portal. Set these as secret values in the Render dashboard, never here.
+      - key: DEVELOPER_NAME
+        value: Platform Developer
+      - key: DEVELOPER_EMAIL
+        sync: false
+      - key: DEVELOPER_PASSWORD
+        sync: false

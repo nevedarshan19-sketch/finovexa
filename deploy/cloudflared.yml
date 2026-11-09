@@ -1,0 +1,11 @@
+# Install to /etc/cloudflared/config.yml after creating the tunnel:
+#   cloudflared tunnel login
+#   cloudflared tunnel create finovexa-api
+# Replace TUNNEL_UUID and API_HOSTNAME.
+tunnel: TUNNEL_UUID
+credentials-file: /etc/cloudflared/TUNNEL_UUID.json
+
+ingress:
+  - hostname: API_HOSTNAME
+    service: http://127.0.0.1:8000
+  - service: http_status:404

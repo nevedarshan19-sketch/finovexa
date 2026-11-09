@@ -1,0 +1,10 @@
+[Unit]
+Description=FINOVEXA encrypted database and uploads backup
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/finovexa/finovexa-backup.sh
+Nice=10
+IOSchedulingClass=idle
