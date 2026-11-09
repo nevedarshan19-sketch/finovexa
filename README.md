@@ -10,6 +10,10 @@ A public marketing site (`/home`, `/features`, `/pricing`, `/about`, `/contact`)
 
 ![stack](https://img.shields.io/badge/React-18-149ECA) ![stack](https://img.shields.io/badge/TypeScript-5.7-3178C6) ![stack](https://img.shields.io/badge/FastAPI-0.162-009688) ![stack](https://img.shields.io/badge/SQLite-SQLAlchemy%202-003B57)
 
+## Live demo
+
+**[finovexa.onrender.com](https://finovexa.onrender.com)** — the public site (home, features, pricing, Market Intelligence) is open without a login. Register a free account to explore the owner dashboard, GST billing, tax centre and cash-flow tools. Hosted on a free Render instance, so the first request after ~15 minutes idle can take about 45 seconds to wake.
+
 ## Feature map
 
 | Page | What it does |
